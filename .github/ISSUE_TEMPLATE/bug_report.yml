@@ -1,0 +1,42 @@
+name: Bug report
+description: Report incorrect detection, damaged texture, or a CLI failure
+title: "[Bug]: "
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: Do not upload private images or images you are not allowed to redistribute. Strip metadata before attaching photographs.
+  - type: input
+    id: version
+    attributes:
+      label: Nevermoire version
+      placeholder: 0.1.0
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Environment
+      placeholder: Windows 11, Node.js 22.15.0
+    validations:
+      required: true
+  - type: textarea
+    id: command
+    attributes:
+      label: Exact command
+      render: shell
+    validations:
+      required: true
+  - type: textarea
+    id: behaviour
+    attributes:
+      label: What happened?
+      description: Explain the visible artefact, false positive, or failure.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What did you expect?
+    validations:
+      required: true

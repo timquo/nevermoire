@@ -1,0 +1,14 @@
+node_modules/
+.npm-cache/
+coverage/
+dist/
+demo-output/
+real-test-*/
+licensed-source/
+*.nevermoire.*
+*.tgz
+.DS_Store
+Thumbs.db
+.env
+.env.*
+!.env.example

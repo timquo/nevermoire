@@ -1,0 +1,13 @@
+node_modules/
+.npm-cache/
+coverage/
+demo-output/
+test/
+scripts/
+docs/
+.github/
+CONTRIBUTING.md
+CODE_OF_CONDUCT.md
+SECURITY.md
+CHANGELOG.md
+RELEASE_CHECKLIST.md

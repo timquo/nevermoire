@@ -1,0 +1,46 @@
+{
+  "name": "nevermoire",
+  "version": "0.1.0",
+  "description": "Local, classical moire detector and suppressor for photographs",
+  "keywords": [
+    "moire",
+    "demoire",
+    "image-processing",
+    "fft",
+    "photography",
+    "cli"
+  ],
+  "author": "timquo",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/timquo/nevermoire.git"
+  },
+  "bugs": {
+    "url": "https://github.com/timquo/nevermoire/issues"
+  },
+  "homepage": "https://github.com/timquo/nevermoire#readme",
+  "type": "module",
+  "files": [
+    "src/",
+    "README.md",
+    "LICENSE"
+  ],
+  "sideEffects": false,
+  "bin": {
+    "nevermoire": "src/cli.mjs"
+  },
+  "scripts": {
+    "start": "node src/cli.mjs",
+    "test": "node --test",
+    "check": "node scripts/check-secrets.mjs && node --check src/cli.mjs && node --check src/core.mjs && node --check src/fft.mjs && node --test",
+    "demo:generate": "node scripts/generate-demo.mjs",
+    "demo:measure": "node scripts/measure-demo.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "sharp": "0.35.3"
+  },
+  "license": "MIT"
+}
