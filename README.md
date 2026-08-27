@@ -20,47 +20,85 @@ network calls during image processing**.
 
 ## Results
 
-### Blue feathers: a difficult luminance-moire example
+### Black feathers: dense rainbow moire
 
-This photograph contains broad false bands over genuine, highly periodic feather
-barbs. The balanced profile targets only low spatial frequencies and leaves most
-fine structure intact. The strong profile suppresses more of the bands, with
-visible softening where real texture overlaps the rejected frequencies. This is
-an intentionally difficult example, not a claim of perfect reconstruction.
+Fine, highly periodic feather barbs create an intentionally difficult test for
+any classical filter. The balanced profile reduces the false colour while
+retaining most local colour variation. The strong profile uses a wider guided
+chroma radius to suppress the large rainbow rings. Neither profile changes the
+luminance channel, so the fine feather structure remains sharp.
 
 | Original | Balanced | Strong |
 | :---: | :---: | :---: |
-| <img src="docs/assets/unsplash-feathers-original.jpg" alt="Blue feathers before Nevermoire processing" width="420"> | <img src="docs/assets/unsplash-feathers-balanced.jpg" alt="Blue feathers after balanced low-frequency Nevermoire processing" width="420"> | <img src="docs/assets/unsplash-feathers-strong.jpg" alt="Blue feathers after strong low-frequency Nevermoire processing" width="420"> |
+| <img src="docs/assets/raven-moire-original.jpg" alt="Black feathers with strong rainbow moire before Nevermoire processing" width="420"> | <img src="docs/assets/raven-moire-balanced.jpg" alt="Black feathers after balanced chromatic-moire suppression" width="420"> | <img src="docs/assets/raven-moire-strong.jpg" alt="Black feathers after strong chromatic-moire suppression" width="420"> |
 
-Photo: [“Blue and brown feathers”](https://unsplash.com/photos/blue-and-brown-feathers-GT6MZ3JHxEk)
-by [David Clode](https://unsplash.com/@davidclode), used under the
-[Unsplash License](https://unsplash.com/license). The repository copy is a
-metadata-free 1200 x 900 crop; details and a source checksum are in
+<details>
+<summary>Reproduce this comparison</summary>
+
+Balanced:
+
+```sh
+nevermoire docs/assets/raven-moire-original.jpg \
+  -o docs/assets/raven-moire-balanced.jpg \
+  --mode auto \
+  --strength 0.82 --threshold 4 --notch-width 1.9 \
+  --max-peaks 5 --chroma-smooth 18 --smooth-strength 1 \
+  --quality 94
+```
+
+Strong:
+
+```sh
+nevermoire docs/assets/raven-moire-original.jpg \
+  -o docs/assets/raven-moire-strong.jpg \
+  --mode auto \
+  --strength 1 --threshold 3.2 --notch-width 3.5 \
+  --max-peaks 10 --chroma-smooth 80 --smooth-strength 1 \
+  --quality 94
+```
+
+</details>
+
+### Dark fabric: broad chromatic moire
+
+This example contains slower colour waves laid over visible woven texture. The
+balanced profile removes most of the coloured interference while preserving the
+cloth's tonal folds. Strong increases both spectral attenuation and the chroma
+smoothing radius for a cleaner, more neutral result.
+
+| Original | Balanced | Strong |
+| :---: | :---: | :---: |
+| <img src="docs/assets/fabric-moire-original.jpg" alt="Dark fabric with broad chromatic moire before Nevermoire processing" width="420"> | <img src="docs/assets/fabric-moire-balanced.jpg" alt="Dark fabric after balanced chromatic-moire suppression" width="420"> | <img src="docs/assets/fabric-moire-strong.jpg" alt="Dark fabric after strong chromatic-moire suppression" width="420"> |
+
+<details>
+<summary>Reproduce this comparison</summary>
+
+Balanced:
+
+```sh
+nevermoire docs/assets/fabric-moire-original.jpg \
+  -o docs/assets/fabric-moire-balanced.jpg \
+  --mode auto \
+  --strength 0.82 --threshold 4 --notch-width 1.9 \
+  --max-peaks 5 --chroma-smooth 18 --smooth-strength 1 \
+  --quality 94
+```
+
+Strong:
+
+```sh
+nevermoire docs/assets/fabric-moire-original.jpg \
+  -o docs/assets/fabric-moire-strong.jpg \
+  --mode auto \
+  --strength 1 --threshold 3.2 --notch-width 3.5 \
+  --max-peaks 10 --chroma-smooth 40 --smooth-strength 1 \
+  --quality 94
+```
+
+</details>
+
+The public JPEGs are metadata-free. Dimensions and checksums are recorded in
 [`docs/assets/README.md`](docs/assets/README.md).
-
-Balanced command:
-
-```sh
-nevermoire docs/assets/unsplash-feathers-original.jpg \
-  -o docs/assets/unsplash-feathers-balanced.jpg \
-  --mode screen --luma --luma-strength 0.72 \
-  --tile 512 --step 384 \
-  --min-frequency 0.006 --max-frequency 0.08 \
-  --strength 0.8 --threshold 4.2 --notch-width 2.2 \
-  --max-peaks 4 --quality 94
-```
-
-Strong command:
-
-```sh
-nevermoire docs/assets/unsplash-feathers-original.jpg \
-  -o docs/assets/unsplash-feathers-strong.jpg \
-  --mode screen --luma --luma-strength 1 \
-  --tile 512 --step 384 \
-  --min-frequency 0.006 --max-frequency 0.1 \
-  --strength 1 --threshold 3.5 --notch-width 4 \
-  --max-peaks 6 --quality 94
-```
 
 ## Features
 
@@ -377,7 +415,3 @@ negative examples, then improving calibration without adding neural models.
 ## Licence
 
 Code is available under the [MIT License](LICENSE).
-
-The MIT licence applies to the source code. Photograph copyrights remain with
-their respective owners. The documentation photograph is attributed and
-licensed separately in [`docs/assets/README.md`](docs/assets/README.md).
